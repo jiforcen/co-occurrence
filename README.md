@@ -33,7 +33,7 @@ cooc_tensor = calc_spatial_cooc(tensor, cooc_filter, cooc_r)
 ##### Arguments
 
 * **tensor:** activation 4D tensor with shape: `(batch_size, rows, cols, channels)`.
-* **cooc_filter:** activation 4D tensor with shape: `(channels, channels,2*cooc_r+1, 2*cooc_r+1)`. This *cooc_filter* can be initialized using the function called *ini_cooc_filter(channels, cooc_r)* also in [cooccurrences.py](./cooccurrence/cooccurrences.py).
+* **cooc_filter:** activation 4D tensor with shape: `(channels, channels, 2 * cooc_r + 1, 2 * cooc_r + 1)`. This *cooc_filter* can be initialized using the function called *ini_cooc_filter(channels, cooc_r)* also in [cooccurrences.py](./cooccurrence/cooccurrences.py).
 * **cooc_r:** is the radious considered for the co-occurrence window
 
 ##### Output
