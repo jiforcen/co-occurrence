@@ -1,4 +1,4 @@
-# co-occurrence
+# Co-occurrences of Deep Convolutional Features
 
 In this repository is the Pytorch implementation of our ***co-occurrence*** representation method from convolutional neural networks activation maps. This ***co-occurrence*** representation method is presented in the paper ***Co-Occurrence* of Deep Convolutional Features for image search**.
 
