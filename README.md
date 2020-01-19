@@ -27,14 +27,14 @@ One great advantage of this implementation is that *co-occurrence* filter can be
 In [cooccurrences.py](./cooccurrence/cooccurrences.py) is the torch implementation to obtain the *co-occurrence* tensor from an activation tensor. This representation can be obtained with the next method called *calc_spatial_cooc*.
 
 ```
-cooc_tensor = calc_spatial_cooc(tensor, filters, r)
+cooc_tensor = calc_spatial_cooc(tensor, cooc_filter, cooc_r)
 ```
 
 ##### Arguments
 
 * **tensor:** activation 4D tensor with shape: `(batch_size, rows, cols, channels)`.
-* **cooc_filter:** activation 4D tensor with shape: `(channels, channels,2*r+1, 2*r+1)`. This *cooc_filter* can be initialized using the function called *ini_cooc_filter(channels, r)* also in [cooccurrences.py](./cooccurrence/cooccurrences.py).
-* **r:** is the radious considered for the co-occurrence window
+* **cooc_filter:** activation 4D tensor with shape: `(channels, channels,2*cooc_r+1, 2*cooc_r+1)`. This *cooc_filter* can be initialized using the function called *ini_cooc_filter(channels, cooc_r)* also in [cooccurrences.py](./cooccurrence/cooccurrences.py).
+* **cooc_r:** is the radious considered for the co-occurrence window
 
 ##### Output
 
