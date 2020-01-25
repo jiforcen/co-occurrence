@@ -1,9 +1,12 @@
 """ co-occurrence calculation example for a given activation map
 """
 from argparse import ArgumentParser
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 import torch
+import torch.utils.model_zoo as model_zoo
+import torchvision.models as models
 from PIL import Image
 
 from cooccurrence.cooccurrences import (
@@ -11,9 +14,10 @@ from cooccurrence.cooccurrences import (
     calc_spatial_cooc
 )
 
-IMAGE_PATH = "./data/all_souls_000117.jpg"
-ACT_MAP_PATH = "./data/all_souls_000117.npy"
 COOC_FILTER_PATH = "./data/weights_cooc_44_best_model_8192_ft.npy"
+
+# Using VGG torch features from https://github.com/filipradenovic/cnnimageretrieval-pytorch
+VGG16 = "http://cmp.felk.cvut.cz/cnnimageretrieval/data/networks/imagenet/imagenet-caffe-vgg16-features-d369c8e.pth"
 
 def plot_figures(img, act_m, cooc_m_f, cooc_m_l):
     """ Method to plot the example figures
@@ -52,14 +56,26 @@ if __name__ == '__main__':
     """ Main """
 
     parser = ArgumentParser()
+    parser.add_argument('--test_image', dest='test_image', type=str,
+                        default="./data/all_souls_000117.jpg", help='path to test image')
     parser.add_argument('--cooc_r', dest='cooc_r', type=int, default=4, help='cooc r size')
+
     args = parser.parse_args()
 
     # Load image and activation map
-    image = Image.open(IMAGE_PATH)
-    act_map = np.load(ACT_MAP_PATH)
-    act_map_t = torch.FloatTensor(np.expand_dims(act_map, axis=0)).cuda()
+    image = Image.open(args.test_image)
+    image = np.array(image)
+    net_image = np.moveaxis(np.array(image), 2, 0)
 
+    VGG16_net = models.vgg16(pretrained=False).features
+
+    model_dir = os.path.join(os.path.join(os.getcwd(), 'data'), 'networks')
+    VGG16_net.load_state_dict(model_zoo.load_url(VGG16, model_dir=model_dir))
+    VGG16_net.cuda()
+    VGG16_net.eval()
+
+    net_input = torch.FloatTensor(np.expand_dims(net_image, axis=0)).cuda()
+    act_map_t = VGG16_net(net_input)
     depth = act_map_t.shape[1]
 
     # Co-occurrences calcultation
@@ -75,6 +91,6 @@ if __name__ == '__main__':
     cooc_map_learned = calc_spatial_cooc(act_map_t, cooc_filter, 4)
     cooc_map_learned = cooc_map_learned.cpu().data.squeeze().numpy()
 
-
     # Graphic representation
+    act_map = act_map_t.cpu().data.squeeze().numpy()
     plot_figures(image, act_map, cooc_map_fix, cooc_map_learned)
