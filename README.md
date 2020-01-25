@@ -51,7 +51,7 @@ In script [cooc_example.py](./cooc_example.py) is implemented an example of *co-
 ```
 PYTHONPATH=. python cooc_example.py --test_image ./data/all_souls_000117.jpg --cooc_r 4
 ```
-* **test_image:** path to the test image.
+* **test_image:** path to the image to be tested.
 * **cooc_r:** is the radious considered for the *co-occurrence* window.
 
 In the next figure is shown a graphical representation of the *co-occurrence* tensors otbtained in the previous script. We can see that *Direct co-occurrence* representation emphasize regions with features, and *Trainable co-occurrence* representation emphasize buildings, because was trained in a buildings dataset.
