@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This repository contains the implementation of our ***co-occurrence*** representation method from convolutional neural networks activation maps in PyTorch. This ***co-occurrence*** representation method is presented in the paper ***Co-Occurrence* of Deep Convolutional Features for image search**.
+This repository contains the implementation of our ***co-occurrence*** representation method from convolutional neural networks activation maps in PyTorch. This ***co-occurrence*** representation method is presented in the paper [***Co-Occurrence* of Deep Convolutional Features for image search**](https://arxiv.org/abs/2003.13827).
 
 
 ## Formulation
